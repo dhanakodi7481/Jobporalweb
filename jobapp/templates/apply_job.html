@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Apply for {{ job.title }}{% endblock %}
+{% load widget_tweaks %}
+
+<!-- AOS Animation Library -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+    .card {
+        background-color: #ffffff;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 0.5rem;
+    }
+
+    .btn-primary {
+        border-radius: 0.5rem;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        h3.card-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+{% block main-content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-10" data-aos="fade-up">
+
+            <!-- Job Details -->
+            <div class="card mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-2 text-primary">{{ job.title }}</h3>
+                    <h5 class="card-subtitle text-muted mb-3">{{ job.company }}</h5>
+
+                    <div class="mb-3">
+                        <strong>Description:</strong>
+                        <p class="text-muted">{{ job.description }}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6" >
+                            <strong>Salary:</strong>
+                            <p class="text-success fw-semibold">₹ {{ job.salary }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Location:</strong>
+                            <p>{{ job.location }}</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-success fw-bold">
+                    👥 Total Applicants: {{ application_count }}
+                </p>
+            </div>
+
+            <!-- Application Form -->
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-body p-4">
+                    <h4 class="mb-4 text-center text-dark fw-bold">Submit Your Application</h4>
+
+                    <form method="POST" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="mb-3" data-aos="fade-left" data-aos-delay="{{ forloop.counter0|add:4 }}00">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="d-grid mt-4" data-aos="zoom-in-up" data-aos-delay="800">
+                            <button type="submit" class="btn btn-primary btn-lg">🚀 Submit Application</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra-js %}
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true
+    });
+</script>
+{% endblock %}

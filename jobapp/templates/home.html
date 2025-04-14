@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block main-content %}
+<style>
+    .hero-section {
+        background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0') center/cover no-repeat;
+        color: white;
+        padding: 100px 30px;
+        border-radius: 20px;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .feature-card {
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        color: black;
+    }
+
+    .feature-card:hover {
+        transform: scale(1.03);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-glass {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .btn-glass:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+</style>
+
+<div class="container mt-5">
+
+    <!-- Hero Section -->
+    <div class="hero-section text-center mb-5">
+        <h1 class="display-4 fw-bold">Welcome to TalentNexus</h1>
+        <p class="lead">Find your dream job or the perfect candidate effortlessly.</p>
+        <a href="{% url 'job_list' %}" class="btn btn-glass mt-3" >Browse Jobs</a>
+    </div>
+
+    <!-- Features Section -->
+    <div class="text-center mb-4 text-white">
+        <h2 class="fw-bold mb-3 text-white">What You Can Do</h2>
+        <p>Explore the features designed to help job seekers and recruiters.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card text-center h-100 text-white">
+                <h4>🔍 Search Jobs</h4>
+                <p>Use filters to find jobs by location, category, or company.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center h-100 text-white">
+                <h4>📄 Apply Instantly</h4>
+                <p>Create a profile and apply to your desired jobs in just a few clicks.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center h-100 text-white">
+                <h4>💼 Post Jobs</h4>
+                <p>Employers can post job listings and manage applications easily.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

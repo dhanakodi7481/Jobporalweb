@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete Profile{% endblock %}
+
+{% block main-content %}
+<style>
+    body {
+        background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .glass-box {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        padding: 40px;
+        width: 60%;
+        margin: 0 auto;
+        animation: fadeIn 1s ease-in;
+        text-align: center;
+    }
+
+    .btn-danger {
+        border-radius: 10px;
+        padding: 10px 30px;
+        font-weight: 600;
+        background-color: red;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        transform: scale(1.05);
+        background-color: darkred;
+    }
+
+    .cancel-link {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+    .cancel-link:hover {
+        color: lightgray;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        animation: fadeIn 1.2s ease-in;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: none;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="glass-box">
+        <h2>Are you sure you want to delete your profile?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, delete my profile</button>
+        </form>
+        <a href="{% url 'home' %}" class="cancel-link">Cancel</a>
+    </div>
+</div>
+{% endblock %}

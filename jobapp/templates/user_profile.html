@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block title %}User Profile{% endblock %}
+
+{% block main-content %}
+<style>
+    .fade-in {
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .profile-pic {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        display: block;
+        margin: 0 auto;
+    }
+
+    .btn-glass {
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: white;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-glass:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 16px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    .profile-label {
+        flex: 1;
+        text-align: left;
+        color: white;
+    }
+
+    .profile-value {
+        flex: 1;
+        text-align: right;
+        color: white;
+    }
+</style>
+
+<div class="container mt-5 fade-in">
+
+    <!-- ✅ Hero Banner Section -->
+    <div class="mb-5 rounded-4 shadow overflow-hidden">
+        {% if profile.banner %}
+            <img src="{{ profile.banner.url }}" class="w-100" style="height: 250px; object-fit: cover;" alt="Banner">
+        {% else %}
+            <div class="text-white text-center d-flex align-items-center justify-content-center" style="height: 250px; background: rgba(0,0,0,0.5);">
+                <h2>No Banner Uploaded</h2>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- ✅ Profile Glass Card -->
+    <div class="glass-card p-5 mx-auto fade-in justify-content-center">
+        <div class="text-center mb-4">
+            <!-- Profile Image Centering -->
+            <div class="d-flex justify-content-center">
+                {% if profile.image %}
+                    <img src="{{ profile.image.url }}" class="profile-pic mb-3" alt="Profile Image">
+                {% else %}
+                    <div class="bg-light border rounded-circle d-flex align-items-center justify-content-center shadow mb-3" style="width: 160px; height: 160px;">No Image</div>
+                {% endif %}
+            </div>
+            <h3 class="text-white">{{ request.user}}</h3>
+        </div>
+
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 p-4 rounded">
+
+                    <div class="profile-item">
+                        <span class="profile-label">Phone:</span>
+                        <span class="profile-value">{{ profile.phone }}</span>
+                    </div>
+
+                    <div class="profile-item">
+                        <span class="profile-label">Current Company:</span>
+                        <span class="profile-value">{{ profile.current_company }}</span>
+                    </div>
+
+                    <div class="profile-item">
+                        <span class="profile-label">Designation:</span>
+                        <span class="profile-value">{{ profile.designation }}</span>
+                    </div>
+
+                    <div class="profile-item">
+                        <span class="profile-label">Skills:</span>
+                        <span class="profile-value">{{ profile.skills }}</span>
+                    </div>
+
+                    <div class="profile-item">
+                        <span class="profile-label">Email:</span>
+                        <span class="profile-value">{{ user.email }}</span>
+                    </div>
+
+                    <!-- ✅ Resume -->
+                    <div class="text-center mt-4">
+                        <p style="color: white;">
+                            <strong>📄 Latest CV:</strong>
+                            {% if profile.resume %}
+                                <a href="{{ profile.resume.url }}" target="_blank" class="btn btn-sm" style="color: white; outline: white; background-color: black;">View CV</a>
+                            {% else %}
+                                <span class="text-muted">No CV Uploaded</span>
+                            {% endif %}
+                        </p>
+
+                        <!-- ✅ Edit/Delete Buttons -->
+                        <div class="d-flex justify-content-center gap-3 mt-3">
+                            <a href="{% url 'edit_profile' %}" class="btn btn-warning shadow-sm px-4">Edit</a>
+                            <a href="{% url 'delete_profile' %}" class="btn btn-danger shadow-sm px-4" onclick="return confirm('Are you sure you want to delete your profile?');">Delete</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

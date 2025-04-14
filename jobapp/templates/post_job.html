@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Post a Job{% endblock %}
+{% load widget_tweaks %}
+{% block main-content %}
+<style>
+    
+
+    .glass-box {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        padding: 40px;
+        animation: fadeIn 1s ease-in;
+        color: #000;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: none;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-success {
+        border-radius: 10px;
+        padding: 10px 30px;
+        font-weight: 600;
+    }
+
+    .btn-success:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 glass-box">
+            <h2 class="text-center text-white mb-4">🚀 Post a New Job</h2>
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_title" class="form-label">Job Title</label>
+                    {{ form.title|add_class:"form-control" }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_description" class="form-label">Description</label>
+                    {{ form.description|add_class:"form-control" }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_salary" class="form-label">Salary</label>
+                    {{ form.salary|add_class:"form-control" }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_location" class="form-label">Location</label>
+                    {{ form.location|add_class:"form-control" }}
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">Post Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

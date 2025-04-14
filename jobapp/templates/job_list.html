@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Job Listings{% endblock %}
+
+{% block main-content %}
+<style>
+    .fade-in {
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container mt-5 fade-in">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-white">💼 Available Jobs</h2>
+        <p class="text-white">Find your next opportunity</p>
+    </div>
+
+    <!-- Search Filters -->
+    <form method="GET" class="row g-3 mb-5">
+        <div class="col-md-3">
+            <input type="text" name="location" class="form-control shadow-sm" placeholder="🌍 Location" value="{{ request.GET.location }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="category" class="form-control shadow-sm" placeholder="🗂️ Category" value="{{ request.GET.category }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="company" class="form-control shadow-sm" placeholder="🏢 Company" value="{{ request.GET.company }}">
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100 shadow-sm">🔍 Search</button>
+        </div>
+    </form>
+
+    <!-- Job Cards -->
+    {% if jobs %}
+        {% for job in jobs %}
+        <div class="card mb-4 shadow-sm border-0 fade-in">
+            <div class="card-body">
+                <h5 class="card-title text-dark">{{ job.title }}</h5>
+                <p class="card-text text-muted">{{ job.description|truncatewords:25 }}</p>
+                <div class="d-flex justify-content-between flex-wrap align-items-center">
+                    <small class="text-muted">
+                        💰 <strong>Salary:</strong> {{ job.salary }} |
+                        📍 <strong>Location:</strong> {{ job.location }}
+                    </small>
+                    <a href="{% url 'apply_job' job.id %}" class="btn btn-outline-dark btn-sm px-4 shadow-sm">Apply</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning text-center shadow-sm">No jobs found matching your search.</div>
+    {% endif %}
+</div>
+{% endblock %}

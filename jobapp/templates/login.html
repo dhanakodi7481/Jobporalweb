@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+
+{% block main-content %}
+<style>
+    body {
+        background: linear-gradient(to right, #141e30, #243b55);
+        
+    }
+
+    .glass-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        animation: fadeIn 0.8s ease-in-out;
+        transition: transform 0.3s ease;
+    }
+
+    .glass-box:hover {
+        transform: translateY(-4px);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .login-heading {
+        font-family: Georgia, serif;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .btn-login {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.2s;
+        font-size: 14px;
+    }
+
+    .btn-login:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000;
+        transform: scale(1.03);
+    }
+
+    .form-label, .form-control {
+        font-size: 14px;
+        color: #fff;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        padding: 8px;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .register-link a {
+        color: #ffffff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    .text-danger {
+        color: #ffcccc;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-md-6 col-lg-5 glass-box">
+        <h3 class="login-heading">Customer Login</h3>
+        <hr style="border-color: rgba(255, 255, 255, 0.3);">
+        <form action="" method="post" novalidate  style="color: white; text-align: center; font-weight: bold;">
+            {% csrf_token %}
+            {% for fm in form %}
+            <br>
+                <div class="mb-3">
+                    {{ fm.label_tag }} {{ fm }}
+                    <small class="text-danger">{{ fm.errors|striptags }}</small>
+                </div>
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+            <br>
+
+            <button type="submit" class="btn btn-login">Login</button>
+
+            <div class="text-center mt-3 register-link" style="color: white;">
+                New User? <a href="{% url 'customerregistration' %}">Create an Account</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock main-content %}
