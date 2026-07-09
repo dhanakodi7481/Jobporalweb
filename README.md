@@ -261,12 +261,11 @@ https://github.com/dhanakodi7481
 
 LinkedIn
 
-https://www.linkedin.com/in/YOUR-LINKEDIN
+https://www.linkedin.com/in/t-dhanakodi-dev/
 
 Email
 
-your@email.com
-
+dhanakodithirumurugan7481@gmail.com
 ---
 
 <div align="center">
